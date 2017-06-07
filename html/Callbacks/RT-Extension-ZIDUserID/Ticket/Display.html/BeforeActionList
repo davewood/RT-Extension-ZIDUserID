@@ -3,7 +3,11 @@
 jQuery('document').ready(function() {
   "use strict";
 
-  console.log(RT.CurrentUser.Name);
+  if (RT.CurrentUser.Name) {
+    var userid = RT.CurrentUser.Name;
+    var url    = 'https://www.univie.ac.at/ZID/uaccount/admin/index.html?action=detail&username='+userid;
+    console.log(url);
+  }
 
 });
 
