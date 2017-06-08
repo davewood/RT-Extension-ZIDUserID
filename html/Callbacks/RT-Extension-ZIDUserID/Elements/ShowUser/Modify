@@ -1,8 +1,7 @@
 <%ARGS>
-$Transaction
+$User
 </%ARGS>
 <%INIT>
-my $User     = $Transaction->CreatorObj;
 my $name     = $User->Name;
 my $uaccount = '';
 if (
@@ -11,7 +10,7 @@ if (
     && $User->Privileged
 ) {
   my $url = "https://www.univie.ac.at/ZID/uaccount/admin/index.html?action=detail&username=$name";
-  $uaccount = qq!<a href="$url" style="border:margin-left:3px">$name uaccount</a>!;
+  $uaccount = qq!<a href="$url">$name (uaccount)</a> - !;
 }
 </%INIT>
 <% $uaccount | n %>\
