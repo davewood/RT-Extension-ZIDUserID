@@ -1,16 +1,17 @@
 <%ARGS>
 $Transaction
-$uaccount_link => ''
 </%ARGS>
 <%INIT>
-my $User = $Transaction->CreatorObj;
+my $User     = $Transaction->CreatorObj;
+my $name     = $User->Name;
+my $uaccount = '';
 if (
-    $User->Name !~ m/^(RT_System|Nobody)$/xms
-    && $User->Name =~ m/^[a-zA-Z0-9]+$/xmsi
+    $name !~ m/^(RT_System|Nobody)$/xms
+    && $name =~ m/^[a-zA-Z0-9]+$/xmsi
     && $User->Privileged
 ) {
-  my $url  = 'https://www.univie.ac.at/ZID/uaccount/admin/index.html?action=detail&username='.$User->Name;
-  $uaccount_link = qq! <a href="$url">uaccount</a>!;
+  my $url = "https://www.univie.ac.at/ZID/uaccount/admin/index.html?action=detail&username=$name";
+  $uaccount = qq!<a href="$url" style="border:margin-left:3px">$name uaccount</a>!;
 }
 </%INIT>
-<% $uaccount_link | n %>\
+<% $uaccount | n %>\
