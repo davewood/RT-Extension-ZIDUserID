@@ -1,16 +1,18 @@
 <%ARGS>
-$User
+$User => undef
+$display => undef
 </%ARGS>
 <%INIT>
-my $name     = $User->Name;
+my $name     = $User ? $User->Name : undef;
+my $email    = $User ? $User->EmailAddress : undef;
 my $uaccount = '';
 if (
     $name !~ m/^(RT_System|Nobody)$/xms
     && $name =~ m/^[a-zA-Z0-9]+$/xmsi
-    && $User->Privileged
+    && $email =~ m/.*\@univie\.ac\.at$/xmsi
 ) {
   my $url = "https://www.univie.ac.at/ZID/uaccount/admin/index.html?action=detail&username=$name";
-  $uaccount = qq!<a href="$url">$name (uaccount)</a> - !;
+  $uaccount = qq!<a href="$url">uaccount</a> - !;
 }
 </%INIT>
 <% $uaccount | n %>\
